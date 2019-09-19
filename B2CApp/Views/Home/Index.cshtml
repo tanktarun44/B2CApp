@@ -1,0 +1,41 @@
+﻿<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<script>
+    function callAPI() {
+        $.ajax({
+            type: "GET",
+            url: "/api/values",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            headers: { "Authorization": "Bearer " + localStorage["access_token"] },
+            success: function (data) {
+                //alert(JSON.stringify(data));
+                $("#DIV").html(JSON.stringify(data));
+
+
+                console.log(data);
+            }, //End of AJAX Success function
+
+            failure: function (data) {
+                alert(data.responseText);
+            }, //End of AJAX failure function
+            error: function (data) {
+                alert(data.responseText);
+            } //End of AJAX error function
+
+        });
+    }
+</script>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+<a href="https://dovcorp.b2clogin.com/dovcorp.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_sinsup1&client_id=2c772dcc-ae20-48f9-856e-5a4319853d4d&nonce=defaultNonce&redirect_uri=https%3A%2F%2Flocalhost%3A44345%2FRedirect&scope=openid%20https%3A%2F%2Fdovcorp.onmicrosoft.com%2Fdemoapi%2Fwrite%20https%3A%2F%2Fdovcorp.onmicrosoft.com%2Fdemoapi%2Fread%20https%3A%2F%2Fdovcorp.onmicrosoft.com%2Fdemoapi%2Fuser_impersonation&response_type=id_token%20token&prompt=login">Login</a>
+<a href="https://dovcorp.b2clogin.com/dovcorp.onmicrosoft.com/oauth2/v2.0/authorize?p=B2C_1_sinsup1&client_id=2c772dcc-ae20-48f9-856e-5a4319853d4d&nonce=defaultNonce&redirect_uri=https%3A%2F%2Flocalhost%3A44345%2FRedirect&scope=https%3A%2F%2Fdovcorp.onmicrosoft.com%2Fdemoapi%2Fwrite%20https%3A%2F%2Fdovcorp.onmicrosoft.com%2Fdemoapi%2Fread%20https%3A%2F%2Fdovcorp.onmicrosoft.com%2Fdemoapi%2Fuser_impersonation&response_type=token&prompt=login">Login2</a>
+<button onclick="callAPI();">Call API!!!</button>
+<div id="DIV">
+
+</div>

@@ -1,0 +1,46 @@
+﻿<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+
+<script>
+    window.onload = function () {
+        // Try to get the token from the URL
+        token = getToken();
+        localStorage.setItem("access_token", token);
+        window.location.replace("https://localhost:44345/Home");
+        // If the token has been given so change the display
+        //if (token) {
+        //    document.getElementById('api-call').disabled = false;
+        //    document.getElementById('authenticated-msg').innerHTML += token;
+        //    document.getElementById('authenticated-msg').style.display = "block";
+        //    document.getElementById('make-call-msg').style.display = "block";
+        //} else { // Else we haven't been authorized yet
+        //    document.getElementById('un-authenticated-msg').style.display = "block";
+        //}
+    }
+    function getToken() {
+        //substring(1) to remove the '#'
+        hash = parseParms(document.location.hash.substring(1));
+        return hash.access_token;
+    }
+    // Parses the URL parameters and returns an object
+    function parseParms(str) {
+        var pieces = str.split("&"), data = {}, i, parts;
+        // process each query pair
+        for (i = 0; i < pieces.length; i++) {
+            parts = pieces[i].split("=");
+            if (parts.length < 2) {
+                parts.push("");
+            }
+            data[decodeURIComponent(parts[0])] = decodeURIComponent(parts[1]);
+        }
+        return data;
+    }
+
+</script>
+
+@{
+    ViewData["Title"] = "Redirect";
+}
+
+<h2>Index</h2>
